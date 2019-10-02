@@ -14,7 +14,7 @@ module.exports = {
   },
   rules: {
     'prefer-rest-params': 0,
-    'prefer-object-spread': false,
-    'prefer-default-export': false
+    'prefer-object-spread': 0,
+    'prefer-default-export': 0
   }
 };
