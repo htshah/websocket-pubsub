@@ -13,7 +13,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    'prefer-rest-params': false,
+    'prefer-rest-params': 0,
     'prefer-object-spread': false,
     'prefer-default-export': false
   }
