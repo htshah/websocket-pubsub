@@ -4,6 +4,7 @@
   "description": "A Simple Websocket library based on PubSub model",
   "main": "index.js",
   "scripts": {
+    "watch": "./node_modules/.bin/rollup -w -c",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "npm run format:prettier",
     "format:prettier": "node_modules/.bin/prettier --config .prettierrc \"src/**/*.{ts,css,less,js}\" --write",
@@ -27,6 +28,11 @@
   },
   "homepage": "https://github.com/htshah/websocket-pubsub#readme",
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.3.0",
@@ -36,7 +42,9 @@
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1"
+    "pretty-quick": "^1.11.1",
+    "rollup": "^1.21.4",
+    "rollup-plugin-babel": "^4.3.3"
   },
   "husky": {
     "hooks": {
@@ -48,5 +56,8 @@
       "npm run lint:staged",
       "git add"
     ]
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0"
   }
 }
