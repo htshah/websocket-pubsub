@@ -12,5 +12,9 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  rules: {}
+  rules: {
+    'prefer-rest-params': false,
+    'prefer-object-spread': false,
+    'prefer-default-export': false
+  }
 };
