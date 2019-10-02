@@ -9,6 +9,8 @@
   <body>
     <h3>Open console of the browser</h3>
     <script src="../dist/websocket-pubsub.js"></script>
+    <!-- For netlify -->
+    <script src="/websocket-pubsub.js"></script>
     <script>
       var websocket = new WebsocketPubSub('wss://echo.websocket.org', {
         reconnect: false
