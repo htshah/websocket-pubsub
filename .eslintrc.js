@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     'prefer-rest-params': 0,
     'prefer-object-spread': 0,
-    'prefer-default-export': 0
+    'prefer-default-export': 0,
+    'no-underscore-dangle': 0
   }
 };
