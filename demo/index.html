@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="../dist/websocket-pubsub.js"></script>
+    <script>
+      var websocket = new WebsocketPubSub('wss://echo.websocket.org', {
+        reconnect: false
+      });
+
+      var key = websocket.subscribe('ch1', function(data) {
+        console.log('Fn1: ' + data);
+      });
+
+      websocket.subscribe('ch1', function(data) {
+        console.log('Fn2: ' + data);
+      });
+
+      setTimeout(function() {
+        websocket.emit('ch1', 'hello world');
+      }, 2000);
+      setTimeout(function() {
+        websocket.emit('ch1', 'hello world');
+      }, 8000);
+
+      setTimeout(function() {
+        websocket.unsubscribe(key);
+      }, 5000);
+    </script>
+  </body>
+</html>
