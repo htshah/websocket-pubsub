@@ -36,7 +36,8 @@ var WebsocketPubSub = (function () {
       reconnect: true,
       attempts: 5,
       timeout: 3000,
-      buffer: true
+      buffer: true,
+      url: url
     }; // Overwrite default options
 
     this._options = updateDefaults(defaultOptions, userOptions || {});
@@ -55,6 +56,8 @@ var WebsocketPubSub = (function () {
     isOpen: false,
     // Tells whether the websocket is connected or not.
     _buffer: [],
+    _lastPing: false,
+    _stillConnected: false,
     _createObj: function _createObj(url) {
       // Use MozWebSocket if browser is Firefox
       var Socket = 'MozWebSocket' in window ? window.MozWebSocket : window.WebSocket; // Create a new Socket object
@@ -64,17 +67,52 @@ var WebsocketPubSub = (function () {
     _init: function _init() {
       var _this = this;
 
+      this.isOpen = false;
+
       this.ws.onopen = function () {
         log('Connection opened');
         _this.isOpen = true; // Bind events
 
         _this._onMessage();
 
-        _this._onClose(); // Send buffered messages.
+        _this.ws.onclose = _this._onClose;
+
+        _this._onError(); // Send buffered messages.
 
 
-        _this._emitBuffered();
-      };
+        _this._emitBuffered(); // Continuously check if server is still
+        // connected or not.
+        //! __ is reserved channel name.
+
+
+        _this._key = _this.subscribe('__', function (data) {
+          if (data === 'ping' || data === 'pong') {
+            _this._stillConnected = true;
+          }
+        });
+        _this._pingLoop = setInterval(function () {
+          if (_this._lastPing !== false && !_this._stillConnected) {
+            _this._onClose(); // Close connection
+
+
+            return;
+          }
+
+          _this._lastPing = true;
+          _this._stillConnected = false;
+
+          _this.emit('__', 'ping');
+        }, 3000);
+      }; // Autoclose after a timeout if no connection can be made
+
+
+      setTimeout(function () {
+        if (_this.ws !== null && (_this.ws.readyState === 0 || _this.ws.readyState === 3)) {
+          log("Couldn't connect to target. Closing connection...");
+
+          _this._onClose();
+        }
+      }, this._options.timeout);
     },
     _onMessage: function _onMessage() {
       var _this2 = this;
@@ -93,7 +131,26 @@ var WebsocketPubSub = (function () {
         });
       };
     },
-    _onClose: function _onClose() {},
+    _onClose: function _onClose() {
+      log('❌ Closing');
+      clearInterval(this._pingLoop);
+
+      if (this._options.reconnect && this._options.attempts > 0) {
+        log("Reconnecting..");
+        this._options.attempts -= 1;
+        this.unsubscribe(this._key);
+        this.ws = this._createObj(this._options.url);
+
+        this._init();
+      } else {
+        log('✔ Closed');
+      }
+    },
+    _onError: function _onError() {
+      this.ws.onerror = function () {
+        log('Some error occured');
+      };
+    },
     emit: function emit(channel, payload) {
       log("Emitting: " + payload);
       var msg = channel + " " + payload;
@@ -126,6 +183,10 @@ var WebsocketPubSub = (function () {
       return channel + " " + this._uid;
     },
     unsubscribe: function unsubscribe(key) {
+      if (key === undefined) {
+        return;
+      }
+
       log("Unsubscribing from " + key);
       var parsedKey = split(key, ' ');
       var channel = parsedKey[0];

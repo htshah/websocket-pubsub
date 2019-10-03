@@ -23,13 +23,13 @@
   <body>
     <h3>Open console of the browser</h3>
 
-    <script src="../dist/websocket-pubsub.js"></script>
-    <script src="/websocket-pubsub.js"></script>
+    <script type="text/javascript" src="../dist/websocket-pubsub.js"></script>
+    <script type="text/javascript" src="/websocket-pubsub.js"></script>
 
-    <script>
-      var websocket = new WebsocketPubSub('wss://echo.websocket.org', {
-        reconnect: false
-      });
+    <script type="text/javascript">
+      var url = 'wss://echo.websocket.org';
+      // var url = 'ws://localhost:8000';
+      var websocket = new WebsocketPubSub(url);
 
       var key = websocket.subscribe('ch1', function(data) {
         console.log('Fn1: ' + data);
