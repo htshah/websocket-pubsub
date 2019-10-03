@@ -35,11 +35,12 @@ var WebsocketPubSub = (function () {
     var defaultOptions = {
       reconnect: true,
       attempts: 5,
-      timeout: 3000
+      timeout: 3000,
+      buffer: true
     }; // Overwrite default options
 
-    this.options = updateDefaults(defaultOptions, userOptions || {});
-    log('✔ Configured:', this.options);
+    this._options = updateDefaults(defaultOptions, userOptions || {});
+    log('✔ Configured:', this._options);
 
     this._init();
   };
@@ -53,6 +54,7 @@ var WebsocketPubSub = (function () {
     // Stores list of subscriptions for each channels registered.
     isOpen: false,
     // Tells whether the websocket is connected or not.
+    _buffer: [],
     _createObj: function _createObj(url) {
       // Use MozWebSocket if browser is Firefox
       var Socket = 'MozWebSocket' in window ? window.MozWebSocket : window.WebSocket; // Create a new Socket object
@@ -67,6 +69,11 @@ var WebsocketPubSub = (function () {
         _this.isOpen = true; // Bind events
 
         _this._onMessage();
+
+        _this._onClose(); // Send buffered messages.
+
+
+        _this._emitBuffered();
       };
     },
     _onMessage: function _onMessage() {
@@ -86,15 +93,36 @@ var WebsocketPubSub = (function () {
         });
       };
     },
+    _onClose: function _onClose() {},
     emit: function emit(channel, payload) {
       log("Emitting: " + payload);
-      this.isOpen && this.ws.send(channel + " " + payload);
+      var msg = channel + " " + payload;
+
+      if (this.isOpen) {
+        this.ws.send(msg);
+      } else if (this._options.buffer) {
+        this._buffer.push(msg);
+      }
+    },
+    _emitBuffered: function _emitBuffered() {
+      var _this3 = this;
+
+      if (this.isOpen && this._buffer.length > 0) {
+        this._buffer.forEach(function (msg) {
+          log("Emitting buffered: " + msg);
+
+          _this3.ws.send(msg);
+        });
+
+        this._buffer = [];
+      }
     },
     subscribe: function subscribe(channel, cb) {
       log("Subscribing to " + channel);
       var sub = this._sub;
+      this._uid += 1;
       sub[channel] = sub[channel] || {};
-      sub[channel][++this._uid] = cb;
+      sub[channel][this._uid] = cb;
       return channel + " " + this._uid;
     },
     unsubscribe: function unsubscribe(key) {

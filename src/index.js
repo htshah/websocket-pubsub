@@ -10,12 +10,13 @@ const WebsocketPubSub = function(url, userOptions) {
   const defaultOptions = {
     reconnect: true,
     attempts: 5,
-    timeout: 3000
+    timeout: 3000,
+    buffer: true
   };
 
   // Overwrite default options
-  this.options = updateDefaults(defaultOptions, userOptions || {});
-  log('✔ Configured:', this.options);
+  this._options = updateDefaults(defaultOptions, userOptions || {});
+  log('✔ Configured:', this._options);
 
   this._init();
 };
@@ -25,6 +26,7 @@ WebsocketPubSub.prototype = {
   _delimiter: ' ', // Delimiter for channel
   _sub: {}, // Stores list of subscriptions for each channels registered.
   isOpen: false, // Tells whether the websocket is connected or not.
+  _buffer: [],
   _createObj(url) {
     // Use MozWebSocket if browser is Firefox
     const Socket =
@@ -39,6 +41,10 @@ WebsocketPubSub.prototype = {
       this.isOpen = true;
       // Bind events
       this._onMessage();
+      this._onClose();
+
+      // Send buffered messages.
+      this._emitBuffered();
     };
   },
   _onMessage() {
@@ -56,10 +62,23 @@ WebsocketPubSub.prototype = {
       Object.keys(cbs).map((k) => cbs[k](payload, event));
     };
   },
+  _onClose() {},
   emit(channel, payload) {
     log(`Emitting: ${payload}`);
+    const msg = `${channel} ${payload}`;
     if (this.isOpen) {
-      this.ws.send(`${channel} ${payload}`);
+      this.ws.send(msg);
+    } else if (this._options.buffer) {
+      this._buffer.push(msg);
+    }
+  },
+  _emitBuffered() {
+    if (this.isOpen && this._buffer.length > 0) {
+      this._buffer.forEach((msg) => {
+        log(`Emitting buffered: ${msg}`);
+        this.ws.send(msg);
+      });
+      this._buffer = [];
     }
   },
   subscribe(channel, cb) {

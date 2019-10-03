@@ -6,7 +6,7 @@
       async
       src="https://www.googletagmanager.com/gtag/js?id=UA-148986426-2"
     ></script>
-    <script>
+    <script type="text/javascript">
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
@@ -24,8 +24,8 @@
     <h3>Open console of the browser</h3>
 
     <script src="../dist/websocket-pubsub.js"></script>
-    <!-- For netlify -->
     <script src="/websocket-pubsub.js"></script>
+
     <script>
       var websocket = new WebsocketPubSub('wss://echo.websocket.org', {
         reconnect: false
@@ -39,12 +39,8 @@
         console.log('Fn2: ' + data);
       });
 
-      setTimeout(function() {
-        websocket.emit('ch1', 'hello world');
-      }, 2000);
-      setTimeout(function() {
-        websocket.emit('ch1', 'hello world');
-      }, 8000);
+      websocket.emit('ch1', 'hello world1');
+      websocket.emit('ch1', 'hello world2');
 
       setTimeout(function() {
         websocket.unsubscribe(key);
