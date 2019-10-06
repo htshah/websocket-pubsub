@@ -82,7 +82,7 @@ var WebsocketPubSub = (function () {
 
         _this._emitBuffered(); // Continuously check if server is still
         // connected or not.
-        //! __ is reserved channel name.
+        //! __ is a reserved channel name.
 
 
         _this._key = _this.subscribe('__', function (data) {
@@ -102,7 +102,7 @@ var WebsocketPubSub = (function () {
           _this._stillConnected = false;
 
           _this.emit('__', 'ping');
-        }, 3000);
+        }, _this._options.timeout);
       }; // Autoclose after a timeout if no connection can be made
 
 
@@ -153,7 +153,8 @@ var WebsocketPubSub = (function () {
     },
     emit: function emit(channel, payload) {
       log("Emitting: " + payload);
-      var msg = channel + " " + payload;
+      var parsedPayload = typeof payload === 'object' ? JSON.stringify(payload) : payload;
+      var msg = channel + " " + parsedPayload;
 
       if (this.isOpen) {
         this.ws.send(msg);

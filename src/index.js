@@ -53,7 +53,7 @@ WebsocketPubSub.prototype = {
 
       // Continuously check if server is still
       // connected or not.
-      //! __ is reserved channel name.
+      //! __ is a reserved channel name.
       this._key = this.subscribe('__', (data) => {
         if (data === 'ping' || data === 'pong') {
           this._stillConnected = true;
@@ -68,7 +68,7 @@ WebsocketPubSub.prototype = {
         this._lastPing = true;
         this._stillConnected = false;
         this.emit('__', 'ping');
-      }, 3000);
+      }, this._options.timeout);
     };
 
     // Autoclose after a timeout if no connection can be made
@@ -118,7 +118,9 @@ WebsocketPubSub.prototype = {
   },
   emit(channel, payload) {
     log(`Emitting: ${payload}`);
-    const msg = `${channel} ${payload}`;
+    const parsedPayload =
+      typeof payload === 'object' ? JSON.stringify(payload) : payload;
+    const msg = `${channel} ${parsedPayload}`;
     if (this.isOpen) {
       this.ws.send(msg);
     } else if (this._options.buffer) {
