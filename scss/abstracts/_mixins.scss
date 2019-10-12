@@ -1,0 +1,148 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @param {Bool} $self [false] - Whether or not to include current selector
+/// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+/// Make a context based selector a little more friendly
+/// @author Hugo Giraudel
+/// @param {String} $context
+@mixin when-inside($context) {
+  #{$context} & {
+    @content;
+  }
+}
+
+
+
+
+/// Setup breakpoints
+@mixin media-query($value){
+  $adjusted-value: get-breakpoint($value) - 1px + $breakpoint-ajustment-factor;
+  @media (max-width: $adjusted-value) { @content; }
+}
+
+@mixin media-query-up($value){
+  $adjusted-value: get-breakpoint($value);
+  @media (min-width: $adjusted-value) { @content; }
+}
+
+@mixin till-xs{
+  @include media-query("xs"){
+    @content
+  };
+}
+@mixin till-sm{
+  @include media-query("sm"){
+    @content
+  };
+}
+@mixin till-md{
+  @include media-query("md"){
+    @content
+  };
+}
+@mixin till-container{
+  @media (max-width: $container-width - 1px){
+    @content;
+  }
+}
+
+@mixin from-xs{
+  @include media-query-up("xs"){
+    @content
+  };
+}
+@mixin from-sm{
+  @include media-query-up("sm"){
+    @content
+  };
+}
+@mixin from-md{
+  @include media-query-up("md"){
+    @content
+  };
+}
+@mixin from-container{
+  @media (min-width: $container-width){
+    @content;
+  }
+}
+
+
+/// Set gutter-size all sizes
+/// @author Het Shah
+/// @param {Bool} $to-margin Adds negative gutter to margin
+@mixin add-gutters($to-margin: false) {
+  $type: padding;
+  $size: $gutter-size !default;
+  $size-xs: $gutter-size-xs !default;
+
+  @if $to-margin == true{
+    $type: margin;
+    $size: -$size;
+    $size-xs: -$size-xs;
+  }
+  #{$type}-left: #{$size};
+  #{$type}-right: #{$size};
+
+  @include till-xs{
+    // Add different gutter size for sm if $use-gutter-xs is set.
+    @if $use-gutter-xs{
+      #{$type}-left: #{$size-xs};
+      #{$type}-right: #{$size-xs};
+
+    }
+  }
+}
+
+/// Centered via margin
+/// @author Het Shah
+@mixin margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+@mixin font-weight($weight) {
+  font-weight: map-get($font-weights, $weight);
+}
+
+@mixin input-fix($font-size,$height){
+  $line-height: $font-size + 6px;
+  height: $height;
+  font-size: $font-size;
+  line-height: $line-height;
+  padding-top: ($height - $line-height)/2;
+  padding-bottom: ($height - $line-height)/2;
+}
+
+
+@mixin link-color($color,$important: false) {
+  &,&:hover,&:active,&:focus{
+    @if ($important==true){
+      color: color($color) !important;
+    }@else{
+      color: color($color);
+    }
+  }
+}

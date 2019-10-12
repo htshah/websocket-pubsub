@@ -11,42 +11,269 @@
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag('js', new Date());
+      gtag("js", new Date());
 
-      gtag('config', 'UA-148986426-2');
+      gtag("config", "UA-148986426-2");
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>
+      WebsocketPubsub | A Simple websocket client library based on pubsub
+      pattern
+    </title>
+
+    <!-- Google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Muli:400,600,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <h3>Open console of the browser</h3>
+    <nav>
+      <div class="container">
+        <a class="brand-logo" href="/">Websocket<span>PubSub</span></a>
+
+        <div class="nav-links float-right hidden-till-sm">
+          <a href="#demos">Demos</a>
+          <a href="#usage">Usage</a>
+          <a href="#settings">Settings</a>
+          <a
+            class="btn btn-small btn-rounded btn-accent"
+            href="https://github.com/htshah/websocket-pubsub"
+            target="_blank"
+            >View on Github</a
+          >
+        </div>
+
+        <a href="javascript:void(0)" class="btn-menu hidden-from-sm">
+          <img src="/img/menu.svg" alt="Menu" />
+        </a>
+      </div>
+    </nav>
+
+    <div class="main-section">
+      <!-- Intro Section -->
+      <section class="section section--big">
+        <div class="container container">
+          <div class="section__header">
+            <div class="section__title">
+              A PubSub based Websocket Library.
+            </div>
+            <div class="section__subtitle">
+              Light, Simple &amp; Dependency-free.
+            </div>
+          </div>
+          <div class="section__body">
+            <div class="text-center m-b-30">
+              <a
+                class="btn btn-small btn-rounded btn-accent"
+                href="https://github.com/htshah/websocket-pubsub"
+                target="_blank"
+                >Download</a
+              >
+            </div>
+            <div class="prettyprint-wrapper container container--xs">
+              <div class="prettyprint-header">
+                <span class="bullet bullet-red"></span>
+                <span class="bullet bullet-yellow"></span>
+                <span class="bullet bullet-green"></span>
+              </div>
+              <pre class="prettyprint lang-js">
+
+      var ws = new WebsocketPubSub(
+        'wss://echo.websocket.org'
+      );
+      
+      var function1_key 
+        = ws.subscribe('channel1', function(data){
+        console.log('Yay got some data on channel1: ' + data);
+      });
+
+      ws.emit('channel1', 'Hey channel1!');
+
+      ws.unsubscribe(function1_key);
+              </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="section section--no-header">
+        <div class="container">
+          <div class="section__body">
+            <div class="row no-gutters features-box">
+              <div class="col-xs-12 col-md-4">
+                <img src="/img/light.svg" alt="Light-weight" />
+                <h2>Light</h2>
+                <p>
+                  Very light-weight yet very powerful. Only about <b>xkb</b> in
+                  size.
+                </p>
+              </div>
+              <div class="col-xs-12 col-md-4">
+                <img src="/img/simple.svg" alt="Simple" />
+                <h2>Simple</h2>
+                <p>
+                  A very simple API that anyone can use it easily in their
+                  projects.
+                </p>
+              </div>
+              <div class="col-xs-12 col-md-4">
+                <img src="/img/no-dependency.svg" alt="No dependency" />
+                <h2>Dependency-free</h2>
+                <p>
+                  A completely dependency-free library making it smaller in
+                  size.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Options Section -->
+      <section id="settings" class="section section--big">
+        <div class="container container--sm">
+          <div class="section__header">
+            <div class="section__title">Options</div>
+          </div>
+          <div class="section__body">
+            <div class="row no-gutters lib-options">
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12 col-md-3 option-name">
+                    <h3>reconnect</h3>
+                    <p>Default: <i>true</i></p>
+                  </div>
+                  <div class="col-xs-12 col-md-9">
+                    Auto reconnects to Websocket server on connection lost.
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12 col-md-3 option-name">
+                    <h3>attempts</h3>
+                    <p>Default: <i>5</i></p>
+                  </div>
+                  <div class="col-xs-12 col-md-9">
+                    Max. number of auto reconnect attempts to be made.
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12 col-md-3 option-name">
+                    <h3>timeout</h3>
+                    <p>Default: <i>3000</i> (milliSeconds)</p>
+                  </div>
+                  <div class="col-xs-12 col-md-9">
+                    Auto close connection after a timeout if no connection can
+                    be made.
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12 col-md-3 option-name">
+                    <h3>buffer</h3>
+                    <p>Default: <i>true</i></p>
+                  </div>
+                  <div class="col-xs-12 col-md-9">
+                    If set, then all the messages will be buffered until the
+                    connection is re-established.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Methods Section -->
+      <section class="section section--big">
+        <div class="container container--sm">
+          <div class="section__header">
+            <div class="section__title">Methods</div>
+          </div>
+          <div class="section__body">
+            <div class="row no-gutters lib-options">
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12 col-md-3 option-name">
+                    <h3>emit(ch, msg)</h3>
+                    <p>Returns: <i>void</i></p>
+                  </div>
+                  <div class="col-xs-12 col-md-9">
+                    Emits <i>msg</i> on channel <i>ch</i>.
+                    <p class="m-t-15">
+                      <b>ch:</b> [<i>String</i>] Required. Channel name.
+                    </p>
+                    <p>
+                      <b>msg:</b> [<i>String</i>] Required. Message to be sent.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12 col-md-3 option-name">
+                    <h3>subscribe(ch, fn)</h3>
+                    <p>Returns: <i>String</i></p>
+                  </div>
+                  <div class="col-xs-12 col-md-9">
+                    Subscribes to given channel and calls given function
+                    whenever there is new data on the channel.
+                    <p class="m-t-15">
+                      <b>ch:</b> [<i>String</i>] Required. Channel name.
+                    </p>
+                    <p>
+                      <b>fn(data,event):</b> [<i>String</i>] Required. Called
+                      when new data arrives for given channel.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-12 col-md-3 option-name">
+                    <h3>unsubscribe(key)</h3>
+                    <p>Returns: <i>void</i></p>
+                  </div>
+                  <div class="col-xs-12 col-md-9">
+                    Removes function from subscription list.
+                    <p class="m-t-15">
+                      <b>key:</b> [<i>String</i>] Required. Value which is
+                      returned from subscribe function.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div class="container">
+        <a class="brand-logo" href="/">Websocket<span>PubSub</span></a>
+        <div class="nav-links float-right">
+          <a href="#demos">Demos</a>
+          <a href="#usage">Usage</a>
+          <a href="#settings">Settings</a>
+          <a href="https://github.com/htshah/websocket-pubsub"
+            >View on Github</a
+          >
+        </div>
+        <h2 class="author">&lt;/&gt; by Het Shah.</h2>
+      </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
-    <script type="text/javascript" src="../dist/websocket-pubsub.js"></script>
-    <script type="text/javascript" src="/websocket-pubsub.js"></script>
-    <script src="main.js"></script>
-
-    <!-- <script type="text/javascript">
-      var url = 'wss://echo.websocket.org';
-      // var url = 'ws://localhost:8000';
-      var websocket = new WebsocketPubSub(url);
-
-      var key = websocket.subscribe('ch1', function(data) {
-        console.log('Fn1: ' + data);
-      });
-
-      websocket.subscribe('ch1', function(data) {
-        console.log('Fn2: ' + data);
-      });
-
-      websocket.emit('ch1', 'hello world1');
-      websocket.emit('ch1', 'hello world2');
-
-      setTimeout(function() {
-        websocket.unsubscribe(key);
-      }, 5000);
-    </script> -->
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   </body>
 </html>

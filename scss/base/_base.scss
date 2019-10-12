@@ -1,0 +1,204 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+/**
+ * Set up a decent box model on the root element
+ */
+html {
+  scroll-behavior: smooth;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/**
+ * Make all elements from the DOM inherit from the parent box-sizing
+ * Since `*` has a specificity of 0, it does not override the `html` value
+ * making all elements inheriting from the root box-sizing value
+ * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+*{
+  position: relative;
+  font-family: 'Muli', sans-serif;
+  letter-spacing: normal;
+  line-height: normal;
+  font-stretch: normal;
+  word-break: break-word;
+  word-wrap: break-word;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  outline: none;
+  // -webkit-transition: all .15s ease-in;
+  // transition: all .15s ease-in;
+}
+
+a,.link{
+  cursor: pointer;
+  @include link-color('accent');
+
+  &[href='javascript:void(0)']:not(.cursor-pointer){
+    cursor: default;
+  }
+}
+
+p{
+  margin: 0;
+}
+
+
+/*****************************
+* Container
+*****************************/
+.container{
+  position: relative;
+  max-width: $container-width;
+  width: 100%;
+
+  &.container--sm{
+    max-width: $container-width-sm;
+  }
+
+  &.container--xs{
+    max-width: 480px;
+  }
+  
+  @include add-gutters;
+  @include margin-center;
+}
+
+/*****************************
+* Row
+*****************************/
+.row{
+  @include add-gutters(true);
+}
+
+/*****************************
+* Col
+*****************************/
+[class*="col"]{
+  @include add-gutters;
+}
+
+/*****************************
+* Make footer static
+*****************************/
+.main-section{
+  min-height: calc(100vh - #{$nav-height} - 100px);
+}
+
+/*****************************
+* Global styles
+*****************************/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+  text-align: center;
+}
+.brand-logo{
+  font-size: 20px;
+  font-weight: 800;
+  line-height: $nav-height;
+  letter-spacing: 0.5px;
+  @include link-color('text-primary');
+  span{
+    color: color('primary');
+  }
+}
+
+.nav-links{
+  display: inline-block;
+  text-align: right;
+  max-width: 500px;
+  width: 100%;
+  a{
+      display: inline-block;
+      font-size: 14px;
+      &:not(.btn){
+          font-weight: 600;
+          letter-spacing: 0.35px;
+          margin-right: 40px;
+          line-height: $nav-height;
+          @include link-color('text-primary');
+
+          &:hover{
+              box-shadow: 0 4px 0 0 color('accent');
+          }
+      }
+  }
+}
+
+.features-box{
+  h2{
+    font-size: 20px;
+  }
+  img{
+    display: block;
+    width: 100px;
+    height: auto;
+    margin: 0 auto;
+  }
+  p{
+    display: block;
+    text-align: center;
+    max-width: 320px;
+    margin: 0 auto 30px auto;
+  }
+}
+
+.lib-options{
+  h3{
+    font-size: 1.2em;
+    text-align:left;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  p{
+    line-height: 1.3em;
+  }
+
+  & > [class*='col']{
+    &:not(:last-child){
+      border-bottom: 1px solid #dddddd;
+      padding-bottom: 15px;
+    }
+    &:not(:first-child){
+      padding-top: 15px;
+    }
+  }
+
+  @include till-sm{
+    .option-name p{
+      float: right;
+      transform: translateY(4px);
+    }
+
+    h3{
+      float: left;
+    }
+  }
+}
+
+.author{
+  text-align: left;
+  color: #fff;
+  margin: 0 0 20px 0;
+  font-size: 16px;
+
+  @include till-sm{
+    margin-top: 20px;
+    margin-bottom: 0px;
+    text-align: right;
+  }
+}

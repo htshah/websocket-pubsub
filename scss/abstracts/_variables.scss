@@ -1,0 +1,90 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+
+/*****************************
+* Color palette
+*****************************/
+$colors: (
+  'primary': #f7444d,
+  'accent': #ffc107,
+  'accent-2': #1c1b25,
+  'text-primary': #424242,
+  'text-accent': #D9817D,
+  'white': #fff,
+);
+
+
+/// Container's maximum width
+/// @type Length
+$container-width: 1142px;   // Including padding
+$container-width-sm: 750px;
+
+
+
+/// Gutter-size between cols
+$gutter-size: 15px;
+$gutter-size-xs: 10px;  // below 768px
+$use-gutter-xs: false;
+
+
+/*****************************
+* Navbar variables
+*****************************/
+$nav-height: 45px;
+
+/*****************************
+* Section variables
+*****************************/
+$section-padding: 30px;
+$section-padding-xs: 15px;
+$section-sidebar-width: 380px;
+$section-sidebar-width-serp: 315px;
+
+
+$serp-gutter-bottom: 10px;
+
+
+/// Article card margin
+$article-card-margin: 30px;
+$article-card-margin-xs: 15px;
+
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  'xs': 480px,
+  'sm': 768px,
+  'md': 1024px,
+) !default;
+$breakpoint-ajustment-factor: 0.5px;
+
+
+
+
+
+/// Relative or absolute URL where all assets are served from
+/// @type String
+/// @example scss - When using a CDN
+///   $base-url: 'http://cdn.example.com/assets/';
+$base-url: './app/webroot/' !default;
+
+
+
+/// Header height
+$header-height: 35px;
+
+
+/// Font weight
+/// @prop {String} key - Font weight name
+/// @prop {Map} values - Font weight value
+$font-weights: (
+  'light': 400,
+  'medium': 500,
+  'bold': 700
+);
+
+
+$logo-url: 'logo.png';

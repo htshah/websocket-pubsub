@@ -1,0 +1,31 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+footer{
+  $content-line-height: 1.43;
+  
+  background: color('accent-2');
+  padding: 25px 0;
+  
+  &,*{
+    text-decoration: none !important;
+  }
+  
+  .brand-logo{
+    @include link-color('white');
+  }
+  
+  .nav-links{
+    a{
+      @include link-color('white',true);
+    }
+  }
+
+  @include till-sm{
+    .nav-links{
+      float: none;
+      display: block;
+      text-align: left;
+    }
+  }
+}

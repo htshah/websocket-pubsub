@@ -1,0 +1,77 @@
+// -----------------------------------------------------------------------------
+// This file contains all the common styles which are menat to be extended
+// -----------------------------------------------------------------------------
+
+.brand-logo{
+    max-width: 200px;
+    width: 100%;
+
+    img{
+        width: 100%;
+        transform: translateY(-7px);
+    }
+
+    @include till-sm{
+        max-width: 150px;
+        img{
+            transform: translateY(-4px);
+        }
+    }
+}
+
+%shop-now-button-hovered{
+    color: get-color('primary');
+    border-color: get-color('primary');
+
+    &:after{
+        background-image: image-url('arrow-circle-primary.svg');
+    }
+}
+
+%shop-now-button,
+.btn-with-arrow{
+    position: relative;
+    display: block;
+    float: left;
+    height: auto;
+    font-size: 14px;
+    @include font-weight('medium');
+    text-transform: uppercase;
+    color: inherit;
+
+    text-decoration: none !important;
+    padding: 10px;
+    padding-right: 40px;
+    border: 1.5px solid get-color('dark');
+
+    &:hover,.open &{
+        @extend %shop-now-button-hovered;
+    }
+
+    &:before,&:after{
+        position: relative;
+    }
+    
+    &:after{
+        content: '';
+        position: absolute;
+        display: block;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background: image-url('arrow-circle.svg') no-repeat center center / cover;
+        width: 21px;
+        height: 20px;
+    }
+
+    @include from-md{
+        &-lg{
+            font-size: 18px;
+            border-width: 2px;
+        }
+    }
+
+    @include till-xs{
+        font-size: 11px;
+    }
+}

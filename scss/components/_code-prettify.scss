@@ -1,0 +1,40 @@
+pre.prettyprint{
+  border: 0 !important;
+  border-radius: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #212121 !important;
+  width: 100%;
+  margin: 0 0 20px;
+
+  @include till-sm{
+    white-space: pre;
+    overflow-x: auto;
+  }
+}
+
+.prettyprint-wrapper{
+  .prettyprint-header{
+    padding: 5px 15px;
+    background: #151414;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    .bullet{
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      margin-right: 5px;
+      border-radius: 50%;
+
+      &-red{
+        background: #df7065;
+      }
+      &-yellow{
+        background: #e6bb46;
+      }
+      &-green{
+        background: #5bcc8b;
+      }
+    }
+  }
+}

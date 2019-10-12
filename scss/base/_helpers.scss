@@ -1,0 +1,138 @@
+// -----------------------------------------------------------------------------
+// This file contains CSS helper classes.
+// -----------------------------------------------------------------------------
+
+/*****************************
+* Coloring classes
+*****************************/
+@each $color,$val in $colors {
+  .#{$color}-color{
+    background-color: $val;
+  }
+
+  .#{$color}-text{
+    color: $val;
+  }
+}
+
+/*****************************
+* Hidding classes
+*****************************/
+@include till-xs{
+  .hidden-till-xs{
+      display: none !important;
+  }
+}
+@include till-sm{
+  .hidden-till-sm{
+      display: none !important;
+  }
+}
+@include till-md{
+  .hidden-till-md{
+      display: none !important;
+  }
+}
+
+@include from-xs{
+  .hidden-from-xs{
+      display: none !important;
+  }
+}
+@include from-sm{
+  .hidden-from-sm{
+      display: none !important;
+  }
+}
+@include from-md{
+  .hidden-from-md{
+      display: none !important;
+  }
+}
+
+
+/*****************************
+* Centered element
+*****************************/
+.centered-element{
+  position: absolute !important;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+/*****************************
+* Visiblility hidden
+*****************************/
+.visibility-hidden{
+  display: none;
+  visibility: hidden;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -moz-opacity:0;
+  -khtml-opacity: 0;
+  opacity: 0;
+}
+
+/*****************************
+* Visibility visible
+*****************************/
+.visibility-visible{
+  display: block;
+  visibility: visible;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  -moz-opacity:1;
+  -khtml-opacity: 1;
+  opacity: 1;
+}
+
+.float-left{
+  float: left;
+}
+
+.float-right{
+  float: right;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-right{
+  text-align: right;
+}
+
+@include from-sm{
+  .float-right-from-sm{
+    float: right;
+  }
+}
+
+.no-scroll {
+  position: fixed;
+  overflow-y: scroll;
+  max-height: 100vh;
+  width: 100%;
+}
+
+/*****************************
+* Paddings and margins
+*****************************/
+.p-0{
+  padding: 0 !important;
+}
+
+.p-b-0{
+  padding-bottom: 0 !important;
+}
+
+.m-t-15{
+  margin-top: 15px !important;
+}
+
+.m-b-30{
+  margin-bottom: 30px !important;
+}
