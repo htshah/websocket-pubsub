@@ -391,6 +391,7 @@ body{
   padding: 0 15px;
   font-size: 18px;
   font-weight: bold;
+  border-bottom: 1px solid #bdbdbd;
 }
 
 .chat-box__body {
