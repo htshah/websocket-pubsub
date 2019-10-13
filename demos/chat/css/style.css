@@ -365,21 +365,26 @@ template {
   font-family: Muli, sans-serif;
   outline: none;
 }
-
-.container {
+body{
+  position: fixed;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+}
+.chat-box {
+  display: block;
+  height: 100%;
   max-width: 960px;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.chat-box {
+  margin: 0 auto;
   background: #ece5dd;
-  height: 100vh;
   box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.1);
 }
 
 .chat-box__title {
+  position: absolute;
+  top: 0;
+  width: 100%;
   background: #fff;
   height: 60px;
   line-height: 60px;
@@ -389,20 +394,29 @@ template {
 }
 
 .chat-box__body {
-  height: calc(100vh - 60px - 50px);
+  position: fixed;
+  max-width: 960px;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-height: calc(100% - 50px);
   overflow: auto;
 }
 
 .chat-box__input {
-  position: absolute;
+  position: fixed;
   display: block;
-  width: 100%;
-  padding: 0 15px;
+  max-width: 930px;
+  width: calc(100% - 30px);
   bottom: 0;
-  left: 0;
-  height: 50px;
-  line-height: 50px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 16px;
+  height: 16px;
+  line-height: 16px;
+  padding: 17px 15px;
+  box-sizing: content-box;
   border: 0;
   border-radius: 0;
 }
@@ -414,7 +428,9 @@ template {
 }
 
 .chat-box__msg:after,
-.chat-box__msg:before {
+.chat-box__msg:before,
+body:after,
+body:before {
   visibility: hidden;
   display: block;
   font-size: 0;

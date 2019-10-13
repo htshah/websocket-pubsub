@@ -10,14 +10,14 @@ $(function() {
 
   var $chatBoxBody = $(".chat-box__body");
 
-  $(".chat-box__input").keypress(function(e) {
+  $(".chat-box__input").keydown(function(e) {
     var $this = $(this);
     var msg = $this.val();
     var parsedMsg = {
       author: authorName,
       message: msg
     };
-    if (e.which == 13) {
+    if (msg.trim().length > 0 && (e.which == 10 || e.which == 13)) {
       ws.emit("broadcast", parsedMsg);
       parsedMsg.author = "You";
       addMsgToChatBox(parsedMsg, true);
