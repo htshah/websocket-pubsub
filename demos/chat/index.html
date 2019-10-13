@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat Application | WebsocketPubSub</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Muli:400,600,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script>
+      var authorName = null;
+      while (authorName === null || authorName.trim().length === 0) {
+        authorName = prompt("Enter you nickname.");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="chat-box container">
+      <div class="chat-box__title">WebsocketPubSub Group</div>
+      <div class="chat-box__body"></div>
+      <input
+        class="chat-box__input"
+        type="text"
+        placeholder="Enter your message (Press Enter to send)"
+        focused
+      />
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+    <script src="./js/websocket-pubsub.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
