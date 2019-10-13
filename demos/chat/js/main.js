@@ -1,5 +1,5 @@
 $(function() {
-  var ws = new WebsocketPubSub("ws://websocket-pubsub-server.herokuapp.com", {
+  var ws = new WebsocketPubSub("wss://websocket-pubsub-server.herokuapp.com", {
     reconnect: false,
     timeout: 10000
   });
