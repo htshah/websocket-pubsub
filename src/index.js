@@ -118,8 +118,7 @@ WebsocketPubSub.prototype = {
   },
   emit(channel, payload) {
     log(`Emitting: ${payload}`);
-    const parsedPayload =
-      typeof payload === 'object' ? JSON.stringify(payload) : payload;
+    const parsedPayload = JSON.stringify(payload);
     const msg = `${channel} ${parsedPayload}`;
     if (this.isOpen) {
       this.ws.send(msg);

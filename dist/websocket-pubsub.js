@@ -153,7 +153,7 @@ var WebsocketPubSub = (function () {
     },
     emit: function emit(channel, payload) {
       log("Emitting: " + payload);
-      var parsedPayload = typeof payload === 'object' ? JSON.stringify(payload) : payload;
+      var parsedPayload = JSON.stringify(payload);
       var msg = channel + " " + parsedPayload;
 
       if (this.isOpen) {
