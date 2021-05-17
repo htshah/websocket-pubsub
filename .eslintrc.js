@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   env: {
     browser: true,
     es6: true,
@@ -8,6 +8,7 @@ module.exports = {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
+  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
