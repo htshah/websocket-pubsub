@@ -50,8 +50,7 @@
   },
   "lint-staged": {
     "src/**/*.js": [
-      "npm run lint:staged",
-      "git add"
+      "npm run lint:staged"
     ]
   },
   "dependencies": {},
