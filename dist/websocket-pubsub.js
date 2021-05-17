@@ -2,8 +2,6 @@ var WebsocketPubSub = (function () {
   'use strict';
 
   function log() {
-    // eslint-disable-next-line no-unused-expressions,no-undef,no-console
-     console.log.apply(null, arguments);
   }
   /**
    * Overwrites all the values in 'a' by values
@@ -28,9 +26,7 @@ var WebsocketPubSub = (function () {
   }
 
   var WebsocketPubSub = function WebsocketPubSub(url, userOptions) {
-    log('🚀 Creating a websocket...');
     this.ws = this._createObj(url);
-    log('🧰 Configuring...'); // Default options
 
     var defaultOptions = {
       reconnect: true,
@@ -70,7 +66,6 @@ var WebsocketPubSub = (function () {
       this.isOpen = false;
 
       this.ws.onopen = function () {
-        log('Connection opened');
         _this.isOpen = true; // Bind events
 
         _this._onMessage();
@@ -108,7 +103,6 @@ var WebsocketPubSub = (function () {
 
       setTimeout(function () {
         if (_this.ws !== null && (_this.ws.readyState === 0 || _this.ws.readyState === 3)) {
-          log("Couldn't connect to target. Closing connection...");
 
           _this._onClose();
         }
@@ -132,27 +126,21 @@ var WebsocketPubSub = (function () {
       };
     },
     _onClose: function _onClose() {
-      log('❌ Closing');
       clearInterval(this._pingLoop);
 
       if (this._options.reconnect && this._options.attempts > 0) {
-        log("Reconnecting..");
         this._options.attempts -= 1;
         this.unsubscribe(this._key);
         this.ws = this._createObj(this._options.url);
 
         this._init();
-      } else {
-        log('✔ Closed');
       }
     },
     _onError: function _onError() {
       this.ws.onerror = function () {
-        log('Some error occured');
       };
     },
     emit: function emit(channel, payload) {
-      log("Emitting: " + payload);
       var parsedPayload = JSON.stringify(payload);
       var msg = channel + " " + parsedPayload;
 
@@ -167,7 +155,6 @@ var WebsocketPubSub = (function () {
 
       if (this.isOpen && this._buffer.length > 0) {
         this._buffer.forEach(function (msg) {
-          log("Emitting buffered: " + msg);
 
           _this3.ws.send(msg);
         });
@@ -176,7 +163,6 @@ var WebsocketPubSub = (function () {
       }
     },
     subscribe: function subscribe(channel, cb) {
-      log("Subscribing to " + channel);
       var sub = this._sub;
       this._uid += 1;
       sub[channel] = sub[channel] || {};
@@ -187,8 +173,6 @@ var WebsocketPubSub = (function () {
       if (key === undefined) {
         return;
       }
-
-      log("Unsubscribing from " + key);
       var parsedKey = split(key, ' ');
       var channel = parsedKey[0];
       var uid = parsedKey[1]; // Remove cb from the channel's list.
@@ -200,3 +184,4 @@ var WebsocketPubSub = (function () {
   return WebsocketPubSub;
 
 }());
+//# sourceMappingURL=websocket-pubsub.js.map
