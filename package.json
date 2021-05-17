@@ -1,18 +1,18 @@
 {
   "name": "websocket-pubsub",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A Simple Websocket library based on PubSub model",
   "main": "src/index.js",
   "scripts": {
-    "watch": "./node_modules/.bin/rollup -w -c",
-    "watch:production": "./node_modules/.bin/rollup -w -c --environment NODE_ENV:production",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "rollup -w -c",
+    "build": "rollup -c --environment NODE_ENV:production",
     "format": "npm run format:prettier",
-    "format:prettier": "node_modules/.bin/prettier --config .prettierrc \"src/**/*.{ts,css,less,js}\" --write",
+    "format:prettier": "prettier --config ./.prettierrc.json --write \"src/**/*.js\"",
     "lint": "npm run lint:js",
-    "lint:js": "./node_modules/.bin/eslint --fix \"src/**/*.js\" \"src/**/*.jsx\"",
-    "lint:staged": "./node_modules/.bin/eslint --fix",
-    "precommit": "pretty-quick --staged && lint-staged"
+    "lint:js": "eslint --fix \"src/**/*.js\"",
+    "lint:staged": "eslint --fix",
+    "precommit": "pretty-quick --staged && lint-staged",
+    "prepack": "husky install"
   },
   "repository": {
     "type": "git",
@@ -29,27 +29,24 @@
   },
   "homepage": "https://github.com/htshah/websocket-pubsub#readme",
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "eslint": "^6.4.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-prettier": "^3.1.1",
-    "husky": "^3.0.5",
-    "lint-staged": "^9.2.5",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1",
-    "rollup": "^1.21.4",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-babel-minify": "^9.1.0",
-    "rollup-plugin-replace": "^2.2.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run precommit"
-    }
+    "@babel/core": "^7.14.2",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.14.2",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-replace": "^2.4.2",
+    "browserslist": "^4.16.6",
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.2",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.0",
+    "pretty-quick": "^3.1.0",
+    "rollup": "^2.48.0",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -57,5 +54,10 @@
       "git add"
     ]
   },
-  "dependencies": {}
+  "dependencies": {},
+  "browserslist": [
+    "defaults",
+    "ie >= 10",
+    "edge 16-18"
+  ]
 }
