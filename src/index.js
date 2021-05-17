@@ -1,6 +1,6 @@
 import { log, updateDefaults, split } from './utils';
 
-const WebsocketPubSub = function(url, userOptions) {
+const WebsocketPubSub = function (url, userOptions) {
   log('🚀 Creating a websocket...');
   this.ws = this._createObj(url);
 
@@ -12,7 +12,7 @@ const WebsocketPubSub = function(url, userOptions) {
     attempts: 5,
     timeout: 3000,
     buffer: true,
-    url
+    url,
   };
 
   // Overwrite default options
@@ -155,7 +155,7 @@ WebsocketPubSub.prototype = {
 
     // Remove cb from the channel's list.
     delete this._sub[channel][uid];
-  }
+  },
 };
 
 export default WebsocketPubSub;
