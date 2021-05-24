@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   env: {
     browser: true,
     es6: true,
@@ -18,5 +18,6 @@ export default {
     'prefer-object-spread': 0,
     'prefer-default-export': 0,
     'no-underscore-dangle': 0,
+    'no-unused-vars': 0,
   },
 };
