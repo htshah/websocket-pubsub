@@ -2,6 +2,7 @@ import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 
 const fileName = `websocket-pubsub`;
 const inputFile = 'src/index.js';
@@ -16,19 +17,10 @@ const rollupPlugins = [
     preventAssignment: true,
   }),
   nodeResolve(),
+  commonjs(),
   babel({
-    presets: [
-      [
-        '@babel/preset-env',
-        {
-          loose: true,
-          modules: false,
-        },
-      ],
-    ],
     exclude: 'node_modules/**',
     babelHelpers: 'bundled',
-    plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
   }),
 ];
 
